@@ -4,34 +4,38 @@ using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour {
 
-	[SerializeField] private enum Type
+	[SerializeField] public enum Type
     {
 		Green,
 		Yellow,
 		Red
     }
-	[SerializeField] private Type type;
+	[SerializeField] public Type type;
 	[SerializeField] private float speed;
 	[SerializeField] private float time;
 	[SerializeField] private GameObject colisionParticle;
-
-	// Update is called once per frame
-	void FixedUpdate () {
+    private void Start()
+    {
+		StartCoroutine(DestroyBullet(time));
+	}
+    // Update is called once per frame
+    void FixedUpdate () {
 		transform.Translate (Vector2.right * speed * Time.fixedDeltaTime);
-		Destroy (gameObject, time);
+		
 	}
-
 	void OnCollisionEnter2D(Collision2D c){
-		if (c.gameObject.tag == "Wall") {
-			Destroy (gameObject);
-			Instantiate (colisionParticle, transform.position, transform.rotation);
-		} else {
-			Destroy (gameObject, time);
-		}
+		if (c.gameObject.tag == "Wall")
+			StartCoroutine(DestroyBullet(0));
 
+		if (c.gameObject.tag == "Enemy")
+			StartCoroutine(DestroyBullet(0.1f));
 
 	}
 
-
+    IEnumerator DestroyBullet(float _time){
+		yield return new WaitForSeconds(_time);
+		Destroy(gameObject);
+		Instantiate(colisionParticle, transform.position, transform.rotation);
+	}
 
 }

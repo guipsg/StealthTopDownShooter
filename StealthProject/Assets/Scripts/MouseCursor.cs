@@ -13,7 +13,6 @@ public class MouseCursor : MonoBehaviour {
 	void Update () {
 		cursorPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		cursorPos.z = 0;
-		print(cursorPos);
 		transform.position = cursorPos;
 	}
 }

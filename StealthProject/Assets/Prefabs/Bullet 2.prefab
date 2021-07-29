@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3311474730932859621}
   - component: {fileID: -8568071026332354086}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Bullet 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -4503341968038963143, guid: 7e86b69a22d6c454e881f40241bf1bfb, type: 3}
+  m_Sprite: {fileID: 3292176312456091089, guid: 7e86b69a22d6c454e881f40241bf1bfb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aca257a73962304eae5780a311c726f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   speed: 8
   time: 1
-  colisionParticle: {fileID: 6803912703995933124, guid: e014e0bdc2be64f4db42cd7e69355263, type: 3}
+  colisionParticle: {fileID: 6803912703995933124, guid: edfa992949b0ee84e9e8da8c0b537a97, type: 3}
 --- !u!50 &-8568071026332354086
 Rigidbody2D:
   serializedVersion: 4

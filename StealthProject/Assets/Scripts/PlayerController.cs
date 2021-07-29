@@ -25,11 +25,7 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		gun.transform.right = (MouseCursor.cursorPos - transform.position); //look to the mouse positions
-
-		//Picking Movement Inputs into Float
-		moveY = Input.GetAxisRaw ("Vertical");
-		moveX = Input.GetAxisRaw ("Horizontal");
+		
 
 		//Movement condition
 		if (canMove) {
@@ -49,6 +45,21 @@ public class PlayerController : MonoBehaviour {
 
 		}
 
+		
+	}
+    private void Move(Vector2 _movement)
+    {
+		transform.Translate(_movement * vel * Time.deltaTime, Space.World);
+		animator.Play("Run");
+        
+	}
+    void Update(){
+
+		gun.transform.right = (MouseCursor.cursorPos - transform.position); //look to the mouse positions
+
+		//Picking Movement Inputs into Float
+		moveY = Input.GetAxisRaw("Vertical");
+		moveX = Input.GetAxisRaw("Horizontal");
 		if (MouseCursor.cursorPos.x > transform.position.x + 1f)
 		{
 			transform.localScale = new Vector3(1, 1, 0);
@@ -59,17 +70,7 @@ public class PlayerController : MonoBehaviour {
 			transform.localScale = new Vector3(-1, 1, 0);
 			gun.localScale = new Vector3(-1, -1, 0);
 		}
-	}
-    private void Move(Vector2 _movement)
-    {
-		transform.Translate(_movement * vel * Time.deltaTime, Space.World);
-		animator.Play("Run");
-        
-	}
-    void Update(){
-		
 
-		
 	}
 		
 }

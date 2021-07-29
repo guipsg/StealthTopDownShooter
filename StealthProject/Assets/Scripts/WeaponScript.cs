@@ -18,38 +18,42 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float shootDelay = 0.1f;
     [SerializeField] private float reloadSpeed = 2f;
     [SerializeField] private bool canShoot = true;
+    [SerializeField] private bool reloading = false;
     [SerializeField] private GameObject projectile;
     [SerializeField] private GameObject bulletParticle;
-    private bool reloading = false;
 
     // Use this for initialization
     void Start()
     {
         ammo = startAmmo;
     }
-
+    private void OnEnable()
+    {
+        reloading = false;
+    }
     // Update is called once per frame
     void Update()
     {
         //Shooting
         if (Input.GetMouseButtonDown(0))
         {
-            if (canShoot == true)
+            if (canShoot && !reloading)
             {
+                canShoot = false;
                 ammo--;
-                Instantiate(projectile, transform.position, transform.rotation);
+                Instantiate(projectile, transform.position + transform.right, transform.rotation);
                 StartCoroutine(ShootDelay());
-                //Instantiate (bulletParticle, gun.position, gun.rotation);
+                Instantiate (bulletParticle, transform.position + transform.right, transform.rotation);
             }
         }
-        if (ammo < startAmmo)
+        if (ammo < startAmmo && !reloading)
         {
 
             if (Input.GetKeyDown(KeyCode.R))
                 StartCoroutine(Reload());
         }
 
-        if (ammo == 0)
+        if (ammo <= 0 && !reloading)
         {
             canShoot = false;
             StartCoroutine(Reload());
@@ -63,14 +67,16 @@ public class WeaponScript : MonoBehaviour
         reloading = true;
         yield return new WaitForSeconds(reloadSpeed);
         ammo = startAmmo;
-        canShoot = true;
         reloading = false;
+        canShoot = true;
     }
     IEnumerator ShootDelay()
     {
         canShoot = false;
         yield return new WaitForSeconds(shootDelay);
-        canShoot = true;
+        if (!reloading)
+            canShoot = true;
+        
     }
 
 }
